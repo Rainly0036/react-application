@@ -1,52 +1,57 @@
 import './App.css';
 import { useState } from 'react'
-import Title from '../Component/Title'
-import Model from '../Component/Model/Model'
-import EventList from '../Component/EventList'
+import Title from '../Component/Title/Title.js'
+import Model from '../Component/Model/Model.js'
+import EventList from '../Component/EventList/EventList.js'
+import NewEventForm from '../Component/NewEventForm/NewEventForm';
 
 function App() {
-  const [showModel, setShowModel] = useState(true)
+  const [showModel, setShowModel] = useState(false)
   const [showEvents, setShowEvents] = useState(true)
-  const [events, setEvents] = useState([
-    { title: 'learning react.js', id: 1 },
-    { title: 'me:', id: 2 },
-    { title: 'dying bruh', id: 3 }
-  ])
+  const [events, setEvents] = useState([])
 
-  const handleClick = (id) => {
-    setEvents(events.filter((event) => {
-      return id !== event.id
-    }))
-  }
-
-  const handleClose = (id) => {
+  const addEvent = (event) => {
+    setEvents(prevEvents => {
+      return [...prevEvents, event]  
+    })
     setShowModel(false)
   }
 
+  const handleClick = (id) => {
+    setEvents(prevEvents => {
+      return prevEvents.filter(event => id !== event.id)
+    })
+  }
+
+  const subtitle = "All the latest events in Marioland"
+
   return (
     <div className="App">
+      <Title title="Marioland Events" subtitle={subtitle} />
       
-      <Title title="HUAHHA"/>
       {showEvents && (
-      <div>
-        <button onClick={() => setShowEvents(false)}>Hide Events</button>
-      </div>
+        <div>
+          <button onClick={() => setShowEvents(false)}>Hide Events</button>
+        </div>
       )}
-      
       {!showEvents && (
-      <div>
-        <button onClick={() => setShowEvents(true)}>Show Events</button>
-      </div>
+        <div>
+          <button onClick={() => setShowEvents(true)}>Show Events</button>
+        </div>
+      )}
+      {showEvents && <EventList events={events} handleClick={handleClick} />}
+      
+      {showModel && (
+        <Model>
+          <NewEventForm addEvent={addEvent} />
+        </Model>
       )}
 
-      { showEvents && <EventList events={events} handleClick={handleClick} />}
-
-      { showModel && <Model handleClose={handleClose}>
-        <h2>Support me from patron!</h2>
-        <p>$1.99/month only!</p>
-      </Model>}
+      <div>
+        <button onClick={() => setShowModel(true)}>Add New Event</button>
+      </div>
     </div>
-  )
+  );
 }
 
 export default App;
