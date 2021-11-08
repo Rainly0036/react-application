@@ -31,14 +31,16 @@ export default function NewEventForm({ addEvent }) {
                         type="text" 
                         onChange={(e) => setTitle(e.target.value)} 
                         value={title} 
+                        required
                     />
                 </label>
                 <label>
                     <span>Event Date:</span>
                     <input 
                         type="date" 
-                        onChange={(e) => setDate(e.target.value)} v
-                        alue={date} 
+                        onChange={(e) => setDate(e.target.value)} 
+                        value={date} 
+                        required
                     />
                 </label>
                 <button>Submit</button>

@@ -10,7 +10,12 @@ export default function Model({ children, handleClose, isSalesModel }) {
                 textAlign: "center"
             }}>
                 {children}
-                <button onClick={handleClose} className={isSalesModel ? "sales-btn" : ""}>Close</button>
+                <button 
+                    onClick={handleClose} 
+                    className={isSalesModel ? "sales-btn": "" }
+                >
+                    Close
+                </button>
             </div>
         </div>
     ), document.body)

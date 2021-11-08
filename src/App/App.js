@@ -9,11 +9,16 @@ function App() {
   const [showModel, setShowModel] = useState(false)
   const [showEvents, setShowEvents] = useState(true)
   const [events, setEvents] = useState([])
+  const [location, setLocation] = useState('manchester')
 
   const addEvent = (event) => {
     setEvents(prevEvents => {
       return [...prevEvents, event]  
     })
+    setShowModel(false)
+  }
+
+  const handleClose = () => {
     setShowModel(false)
   }
 
@@ -42,7 +47,7 @@ function App() {
       {showEvents && <EventList events={events} handleClick={handleClick} />}
       
       {showModel && (
-        <Model>
+        <Model handleClose={handleClose}>
           <NewEventForm addEvent={addEvent} />
         </Model>
       )}
